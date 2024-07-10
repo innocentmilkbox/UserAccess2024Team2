@@ -9,10 +9,7 @@ export const NotHandlingSideEffectsProperlyModal = ({ HideModal }) => {
   const [arrData, SetData] = useState([]);
 
   useEffect(() => {
-    function fetchingData() {
-      fetchTodo(SetData);
-    }
-    fetchingData();
+    fetchTodo(SetData);
   }, [HideModal]);
 
   return (

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 
 //This file has 1 issue
@@ -10,14 +10,12 @@ const ExpensiveCalculation = (intRange) => {
   }
   return sum;
 };
-const ExpensiveCalculation_Simplify = (initRange) => {
-  return ((1 + initRange) * initRange) / 2;
-};
+
 export const ExpensiveRender = ({ HideModal }) => {
   const [intCount, SetCount] = useState(0);
   const [intRange, SetRange] = useState(1000000000);
 
-  const intTotal = ExpensiveCalculation_Simplify(intRange);
+  const intTotal = useMemo(() => ExpensiveCalculation(intRange), [intRange]);
 
   return (
     <Modal show={true} onHide={HideModal} centered>

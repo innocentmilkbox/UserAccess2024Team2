@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Button, ListGroup, Modal } from "react-bootstrap";
+import { Button, ListGroup, Modal, FormLabel } from "react-bootstrap";
 import { fetchTodo } from "UtilityScripts/Cppu_Common";
 
 //This file has 2 issue
@@ -18,14 +18,18 @@ export const NotHandlingSideEffectsProperlyModal = ({ HideModal }) => {
         <Modal.Title>Not Handling Side Effect Properly</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <ListGroup>
-          {arrData.map((item) => (
-            <ListGroup.Item key={item.id}>
-              <b>{item.email}</b>
-              <div>{item.body}</div>
-            </ListGroup.Item>
-          ))}
-        </ListGroup>
+        {arrData.length ? (
+          <ListGroup>
+            {arrData.map((item) => (
+              <ListGroup.Item key={item.id}>
+                <b>{item.email}</b>
+                <div>{item.body}</div>
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+        ) : (
+          <FormLabel>Loading</FormLabel>
+        )}
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={HideModal}>

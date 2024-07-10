@@ -27,54 +27,48 @@ const CustomHook = () => {
     closeIssue,
   };
 };
+const ModalComponentList = {
+  DirectlyModifyingStateModal: DirectlyModifyingStateModal,
+  NotHandlingSideEffectsProperlyModal: NotHandlingSideEffectsProperlyModal,
+  NotHandlingSideEffectsProperly2Modal: NotHandlingSideEffectsProperly2Modal,
+  IncorrectlyUpdateState: IncorrectlyUpdateState,
+  ExpensiveRender: ExpensiveRender,
+  NotCleaningSideEffect: NotCleaningSideEffect,
+};
+const RenderModalComponentDynamically = ({ modalName, hideModalAction }) => {
+  const ComponentToRender = ModalComponentList[modalName];
+  return (
+    <div>
+      <ComponentToRender HideModal={hideModalAction} />
+    </div>
+  );
+};
 const NestedTernary = () => {
   const { intIssueId, selectIssue, closeIssue } = CustomHook();
   const arrIssueInfo = [
     {
       name: "Directly Modifying State",
-      modal: (
-        <DirectlyModifyingStateModal
-          HideModal={() => closeIssue(0)}
-        ></DirectlyModifyingStateModal>
-      ),
+      modal: "DirectlyModifyingStateModal",
     },
     {
       name: "Not Handling Side Effect Properly",
-      modal: (
-        <NotHandlingSideEffectsProperlyModal
-          HideModal={() => closeIssue(1)}
-        ></NotHandlingSideEffectsProperlyModal>
-      ),
+      modal: "NotHandlingSideEffectsProperlyModal",
     },
     {
       name: "Not Handling Side Effect Properly2",
-      modal: (
-        <NotHandlingSideEffectsProperly2Modal
-          HideModal={() => closeIssue(2)}
-        ></NotHandlingSideEffectsProperly2Modal>
-      ),
+      modal: "NotHandlingSideEffectsProperly2Modal",
     },
     {
       name: "Incorrectly Update State",
-      modal: (
-        <IncorrectlyUpdateState
-          HideModal={() => closeIssue(3)}
-        ></IncorrectlyUpdateState>
-      ),
+      modal: "IncorrectlyUpdateState",
     },
     {
       name: "Expensive Render",
-      modal: (
-        <ExpensiveRender HideModal={() => closeIssue(4)}></ExpensiveRender>
-      ),
+      modal: "ExpensiveRender",
     },
     {
       name: "Not Cleaning Side Effect",
-      modal: (
-        <NotCleaningSideEffect
-          HideModal={() => closeIssue(5)}
-        ></NotCleaningSideEffect>
-      ),
+      modal: "NotCleaningSideEffect",
     },
   ];
 
@@ -92,7 +86,14 @@ const NestedTernary = () => {
           </Button>
         ))}
       </div>
-      {intIssueId != null ? arrIssueInfo[intIssueId].modal : <></>}
+      {intIssueId != null ? (
+        <RenderModalComponentDynamically
+          modalName={arrIssueInfo[intIssueId].modal}
+          hideModalAction={() => closeIssue(intIssueId)}
+        ></RenderModalComponentDynamically>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

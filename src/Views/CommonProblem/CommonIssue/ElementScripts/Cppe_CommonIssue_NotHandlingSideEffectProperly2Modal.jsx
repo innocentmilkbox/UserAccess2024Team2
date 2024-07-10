@@ -10,6 +10,7 @@ export const NotHandlingSideEffectsProperly2Modal = ({ HideModal }) => {
   useEffect(() => {
     fetchTodo(SetData);
   }, [HideModal]);
+
   return (
     <Modal show={true} onHide={HideModal} centered>
       <Modal.Header closeButton>
